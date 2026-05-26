@@ -8,7 +8,7 @@ def load_tasks():
         with open(FILENAME, "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
-    return []
+        return []
 
 
 tasks = load_tasks()
@@ -79,6 +79,8 @@ def delete_task():
 def menu():
     while True:
         print("\n--- TO DO LIST ---")
+        print("     TO DO LIST")
+        print("====================")
         print("1. Ajouter")
         print("2. Lister")
         print("3. Terminer")
