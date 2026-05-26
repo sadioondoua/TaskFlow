@@ -71,9 +71,15 @@ def delete_task():
     index = int(input("Numéro à supprimer : "))
 
     if 0 <= index < len(tasks):
-        tasks.pop(index)
-        save_tasks()
-        print("Tâche supprimée !")
+
+        confirm = input("Es-tu sûr de vouloir supprimer ? (o/n) : ").lower()
+
+        if confirm == "o":
+            tasks.pop(index)
+            save_tasks()
+            print("Tâche supprimée !")
+        else:
+            print("Suppression annulée.")
 
 
 def menu():
@@ -104,3 +110,5 @@ def menu():
         elif choice == "5":
             print("Au revoir !")
             break
+       
+      
