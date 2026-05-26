@@ -7,8 +7,8 @@ def load_tasks():
     try:
         with open(FILENAME, "r", encoding="utf-8") as file:
             return json.load(file)
-    except:
-        return []
+    except FileNotFoundError:
+    return []
 
 
 tasks = load_tasks()
