@@ -80,6 +80,10 @@ def delete_task():
             print("Tâche supprimée !")
         else:
             print("Suppression annulée.")
+    def show_unfinished_taks()
+        for task in tasks :
+            if not task["done"]
+            prinft(task["ittle"])
 
 
 def menu():
@@ -92,6 +96,7 @@ def menu():
         print("3. Terminer")
         print("4. Supprimer")
         print("5. Quitter")
+        print("6. voir les taches non termines")
 
         choice = input("Choisis : ")
 
@@ -110,5 +115,7 @@ def menu():
         elif choice == "5":
             print("Au revoir !")
             break
+
        
-      
+        elif choice == "6" :
+            show_unfinished_tasks()
