@@ -37,7 +37,7 @@ def add_task():
 
 
 def list_tasks():
-    if len(tasks) == 0:
+    if not tasks:
         print("Aucune tâche.")
         return
 
@@ -53,7 +53,8 @@ def list_tasks():
         status = "✅" if task["done"] else "❌"
         print("tache non termine")
         print(f"{i}- {status} {task['title']} [Priorité : {task['priority']}] [Deadline : {task.get('deadline', 'aucune')}]")
-
+    
+    
 def complete_task():
     list_tasks()
 
@@ -63,6 +64,11 @@ def complete_task():
         tasks[index]["done"] = True
         save_tasks()
         print("Tâche terminée !")
+
+def list_completed_tasks():
+    for task in tasks:
+        if task["done"]:
+            print("Tache terminee", task["title"])
 
 
 def delete_task():
@@ -81,6 +87,7 @@ def delete_task():
         else:
             print("Suppression annulée.")
 
+    
 
 def menu():
     while True:
@@ -91,7 +98,8 @@ def menu():
         print("2. Lister")
         print("3. Terminer")
         print("4. Supprimer")
-        print("5. Quitter")
+        print("5. affiche tache terminee")
+        print("6. quitter")
 
         choice = input("Choisis : ")
 
@@ -108,8 +116,14 @@ def menu():
             delete_task()
 
         elif choice == "5":
+             list_completed_tasks()
+            
+
+        elif choice == "5":
             print("Au revoir !")
             break
+        
+
 
        
     
