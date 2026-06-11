@@ -2,9 +2,11 @@
 
 Application de gestion de tâches en ligne de commande développée en Python 3.
 
+<<<<<<< HEAD
 Projet fil rouge du stage Altikva.
 
 
+=======
 
 ---
 
