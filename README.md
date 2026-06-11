@@ -1,6 +1,7 @@
 # TaskFlow
 
 Application de gestion de tâches en ligne de commande développée en Python 3.
+
 Projet fil rouge du stage Altikva.
 
 
