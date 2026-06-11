@@ -1,6 +1,9 @@
-# Todo List Python (CLI)
+# TaskFlow
 
 Application de gestion de tâches en ligne de commande développée en Python 3.
+Projet fil rouge du stage Altikva.
+
+
 
 ---
 
@@ -24,8 +27,8 @@ Application de gestion de tâches en ligne de commande développée en Python 3.
 
 ##  Structure du projet
 
-- `main.py` : point d’entrée du programme
-- `todo.py` : logique des tâches
+- `src/main.py` : point d’entrée du programme
+- `src/todo.py` : logique des tâches
 - `tasks.json` : stockage des données
 
 ---
@@ -35,7 +38,7 @@ Application de gestion de tâches en ligne de commande développée en Python 3.
 ```bash
 git clone https://github.com/sadioondoua/todo-list-python.git
 cd todo-list-python
-python main.py
+python src/main.py
 ## 📸 Aperçu du projet
 
 ## 📸 Aperçu du projet
