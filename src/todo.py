@@ -65,11 +65,6 @@ def complete_task():
         save_tasks()
         print("Tâche terminée !")
 
-def list_completed_tasks():
-    for task in tasks:
-        if task["done"]:
-            print("Tache terminee", task["title"])
-
 
 def delete_task():
     list_tasks()
@@ -98,8 +93,7 @@ def menu():
         print("2. Lister")
         print("3. Terminer")
         print("4. Supprimer")
-        print("5. affiche tache terminee")
-        print("6. quitter")
+        print("5. quitter")
 
         choice = input("Choisis : ")
 
@@ -115,10 +109,7 @@ def menu():
         elif choice == "4":
             delete_task()
 
-        elif choice == "5":
-             list_completed_tasks()
-            
-
+    
         elif choice == "5":
             print("Au revoir !")
             break
