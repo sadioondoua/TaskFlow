@@ -24,25 +24,42 @@ L'application permet de :
 - terminer une tâche
 - supprimer une tâche avec une confirmation
 - sauvegarder les tâches dans un fichier JSON
+- utiliser des commandes dans le terminal avec argparse
 
 ## Organisation du projet
 
 Le projet est organisé avec plusieurs dossiers :
 
 src/
-- main.py : lance le programme
-- todo.py : contient les fonctions de gestion des tâches
+
+-main.py : Lancement de l'application et interface en ligne de commande
+
+-todo.py : Gestion des tâches
+
+-storage.py : Sauvegarde et chargement des données JSON
+
+-models.py : Modèle d'une tâche
+
+-cli.py : Interface utilisateur
+
 
 tests/
+
 - contient les tests du projet
 
+
 README.md :
+
 - explique le fonctionnement du projet
 
+
 .gitignore :
+
 - permet d'ignorer certains fichiers dans Git
 
+
 tasks.json :
+
 - contient les tâches sauvegardées
 
 
@@ -61,13 +78,16 @@ Cloner le projet :
 
 git clone https://github.com/sadioondoua/TaskFlow.git
 
+
 Entrer dans le dossier :
 
 cd TaskFlow
 
+
 Créer un environnement virtuel :
 
 python -m venv venv
+
 
 Activer l'environnement virtuel :
 
@@ -80,7 +100,10 @@ Pour voir les paquets installés :
 
 pip list
 
-Le projet utilise principalement les bibliothèques déjà disponibles avec Python.
+
+Pour installer un paquet :
+
+pip install nom_du_paquet
 
 
 ## Lancement du programme
@@ -90,11 +113,34 @@ Depuis le dossier du projet :
 python src/main.py
 
 
+## Commandes disponibles
+
+Ajouter une tâche :
+
+python src/main.py add "Ma tâche"
+
+
+Afficher les tâches :
+
+python src/main.py list
+
+
+Terminer une tâche :
+
+python src/main.py done 0
+
+
+Supprimer une tâche :
+
+python src/main.py remove 0
+
+
 ## Sauvegarde des données
 
 Les tâches sont enregistrées automatiquement dans le fichier :
 
 tasks.json
+
 
 Cela permet de retrouver les tâches après avoir fermé le programme.
 
@@ -103,29 +149,36 @@ Cela permet de retrouver les tâches après avoir fermé le programme.
 
 J'ai utilisé Git pour gérer les versions du projet.
 
+
 Création d'une branche de travail :
 
 git checkout -b feature/semaine1
+
 
 Ajouter les modifications :
 
 git add .
 
+
 Créer un commit :
 
 git commit -m "feat: ajout fonctionnalité"
+
 
 Envoyer la branche vers GitHub :
 
 git push origin feature/semaine1
 
+
 Revenir sur la branche principale :
 
 git checkout main
 
+
 Fusionner la branche feature avec main :
 
 git merge feature/semaine1
+
 
 Envoyer la version finale :
 
