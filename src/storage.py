@@ -1,6 +1,5 @@
 import json
 
-
 def save_tasks(tasks: list) -> None:
     """
     Sauvegarde les tâches dans le fichier JSON.

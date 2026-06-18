@@ -44,7 +44,7 @@ def complete_task(number: int) -> None:
         print("Tâche terminée ✅")
 
     except IndexError:
-        print("Cette tâche n'existe pas")
+        print("Tache inexistante")
 
 
 def delete_task(number: int) -> None:
