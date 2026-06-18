@@ -94,7 +94,7 @@ def menu():
 
         choice = input("Entrez une option (1/2/3/4/5): ")
 
-        print(f"Tu as choisi : {choice}")
+        print("Tu as choisi: ", choice)
 
         if choice == "1":
             add_task()
