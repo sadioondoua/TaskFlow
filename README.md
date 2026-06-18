@@ -2,63 +2,49 @@
 
 ## Présentation
 
-TaskFlow est une application de gestion de tâches en ligne de commande développée en Python.
+TaskFlow est une application de gestion de tâches développée en Python.
 
-Elle permet à un utilisateur de créer, afficher, terminer et supprimer des tâches directement depuis le terminal.
+Elle fonctionne dans le terminal et permet de gérer des tâches :
+ajouter une tâche, afficher les tâches, terminer une tâche et supprimer une tâche.
 
-Ce projet a été réalisé dans le cadre du stage Altikva afin de mettre en pratique les bases du développement Python, l'utilisation de Git et GitHub ainsi que la structuration d'un projet.
+Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, Git et GitHub.
 
----
+## Objectif du projet
 
-## Objectifs Python utilisés
+L'objectif de TaskFlow est de pratiquer le développement d'une application Python complète.
 
-Ce projet permet de pratiquer plusieurs notions fondamentales de Python :
-
-- Variables
-- Listes
-- Fonctions
-- Conditions
-- Boucles
-- Lecture et écriture de fichiers JSON
-- Organisation du code en plusieurs fichiers
-
----
+Le projet permet de travailler l'organisation du code, la gestion des données, l'utilisation de Git et GitHub ainsi que les bonnes pratiques de développement.
 
 ## Fonctionnalités
 
 L'application permet de :
 
-- Ajouter une tâche
-- Afficher toutes les tâches
-- Marquer une tâche comme terminée
-- Supprimer une tâche avec confirmation
-- Sauvegarder automatiquement les données dans un fichier JSON
+- ajouter une tâche
+- afficher toutes les tâches
+- terminer une tâche
+- supprimer une tâche avec une confirmation
+- sauvegarder les tâches dans un fichier JSON
 
----
+## Organisation du projet
 
-## Structure du projet
+Le projet est organisé avec plusieurs dossiers :
 
-```
-TaskFlow/
+src/
+- main.py : lance le programme
+- todo.py : contient les fonctions de gestion des tâches
 
-├── src/
-│   ├── main.py
-│   └── todo.py
-│
-├── tests/
-│
-├── screenshots/
-│
-├── README.md
-│
-├── .gitignore
-│
-├── tasks.json
-│
-└── venv/
-```
+tests/
+- contient les tests du projet
 
----
+README.md :
+- explique le fonctionnement du projet
+
+.gitignore :
+- permet d'ignorer certains fichiers dans Git
+
+tasks.json :
+- contient les tâches sauvegardées
+
 
 ## Technologies utilisées
 
@@ -68,86 +54,83 @@ TaskFlow/
 - JSON
 - Visual Studio Code
 
----
 
 ## Installation
 
-Cloner le dépôt :
+Cloner le projet :
 
-```bash
-git clone https://github.com/sadioondoua/taskflow.git
-```
+git clone https://github.com/sadioondoua/TaskFlow.git
 
-Entrer dans le dossier du projet :
+Entrer dans le dossier :
 
-```bash
-cd taskflow
-```
+cd TaskFlow
 
-Créer l'environnement virtuel :
+Créer un environnement virtuel :
 
-```bash
 python -m venv venv
-```
 
-Activer l'environnement virtuel sous Windows :
+Activer l'environnement virtuel :
 
-```bash
 venv\Scripts\activate
-```
 
----
 
 ## Utilisation de pip
 
-Vérifier les paquets installés dans l'environnement virtuel :
+Pour voir les paquets installés :
 
-```bash
 pip list
-```
 
-Le projet utilise uniquement des modules intégrés à Python.
-Aucune dépendance externe n'est nécessaire.
+Le projet utilise principalement les bibliothèques déjà disponibles avec Python.
 
----
 
-## Lancement de l'application
+## Lancement du programme
 
-Depuis la racine du projet :
+Depuis le dossier du projet :
 
-```bash
 python src/main.py
-```
 
----
 
 ## Sauvegarde des données
 
-Les tâches sont sauvegardées automatiquement dans le fichier :
+Les tâches sont enregistrées automatiquement dans le fichier :
 
-```
 tasks.json
-```
 
-Cela permet de conserver les tâches même après la fermeture du programme.
+Cela permet de retrouver les tâches après avoir fermé le programme.
 
----
 
-## Git
+## Git utilisé
 
-Le projet utilise Git pour suivre les modifications du code.
+J'ai utilisé Git pour gérer les versions du projet.
 
-Commandes principales utilisées :
+Création d'une branche de travail :
 
-```bash
-git add
-git commit
-git push
-```
+git checkout -b feature/semaine1
 
-Le développement a été réalisé avec une branche feature puis fusionné dans la branche principale.
+Ajouter les modifications :
 
----
+git add .
+
+Créer un commit :
+
+git commit -m "feat: ajout fonctionnalité"
+
+Envoyer la branche vers GitHub :
+
+git push origin feature/semaine1
+
+Revenir sur la branche principale :
+
+git checkout main
+
+Fusionner la branche feature avec main :
+
+git merge feature/semaine1
+
+Envoyer la version finale :
+
+git push origin main
+
 
 ## Auteur
 
