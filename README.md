@@ -2,176 +2,139 @@
 
 ## Présentation
 
-TaskFlow est une application de gestion de tâches en ligne de commande développée en Python.
+TaskFlow est une application de gestion de tâches développée en Python.
 
-Elle permet à un utilisateur d'ajouter, afficher, terminer et supprimer des tâches directement depuis le terminal.
+Elle fonctionne dans le terminal et permet de gérer des tâches :
+ajouter une tâche, afficher les tâches, terminer une tâche et supprimer une tâche.
 
-Ce projet a été réalisé dans le cadre du stage Altikva afin de mettre en pratique les fondamentaux de Python, Git et GitHub, ainsi que les bonnes pratiques de structuration d'un projet logiciel.
+Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, Git et GitHub.
 
----
+## Objectif du projet
 
-## Objectifs pédagogiques
+L'objectif de TaskFlow est de pratiquer le développement d'une application Python complète.
 
-Ce projet permet de travailler les notions suivantes :
-
-* Variables
-* Listes
-* Fonctions
-* Conditions
-* Boucles
-* Lecture et écriture de fichiers JSON
-* Refactorisation du code
-* Utilisation de Git et GitHub
-* Gestion des branches Git
-* Utilisation d'un environnement virtuel Python (venv)
-
----
+Le projet permet de travailler l'organisation du code, la gestion des données, l'utilisation de Git et GitHub ainsi que les bonnes pratiques de développement.
 
 ## Fonctionnalités
 
 L'application permet de :
 
-* Ajouter une tâche
-* Lister les tâches
-* Marquer une tâche comme terminée
-* Supprimer une tâche avec confirmation
-* Sauvegarder automatiquement les données dans un fichier JSON
+- ajouter une tâche
+- afficher toutes les tâches
+- terminer une tâche
+- supprimer une tâche avec une confirmation
+- sauvegarder les tâches dans un fichier JSON
 
----
+## Organisation du projet
 
-## Structure du projet
+Le projet est organisé avec plusieurs dossiers :
 
-```text
-TaskFlow/
+src/
+- main.py : lance le programme
+- todo.py : contient les fonctions de gestion des tâches
 
-├── src/
-│   ├── main.py
-│   └── todo.py
-│
-├── tests/
-│
-├── screenshots/
-│
-├── README.md
-│
-├── .gitignore
-│
-├── tasks.json
-│
-└── venv/
-```
+tests/
+- contient les tests du projet
 
----
+README.md :
+- explique le fonctionnement du projet
+
+.gitignore :
+- permet d'ignorer certains fichiers dans Git
+
+tasks.json :
+- contient les tâches sauvegardées
+
 
 ## Technologies utilisées
 
-* Python 3
-* Git
-* GitHub
-* JSON
-* Visual Studio Code
+- Python 3
+- Git
+- GitHub
+- JSON
+- Visual Studio Code
 
----
 
 ## Installation
 
-Cloner le dépôt :
+Cloner le projet :
 
-```bash
 git clone https://github.com/sadioondoua/TaskFlow.git
-```
 
-Entrer dans le dossier du projet :
+Entrer dans le dossier :
 
-```bash
 cd TaskFlow
-```
 
 Créer un environnement virtuel :
 
-```bash
 python -m venv venv
-```
 
 Activer l'environnement virtuel :
 
-```bash
 venv\Scripts\activate
-```
 
----
 
 ## Utilisation de pip
 
-Vérifier les paquets installés :
+Pour voir les paquets installés :
 
-```bash
 pip list
-```
 
-Le projet utilise uniquement les bibliothèques standards de Python.
+Le projet utilise principalement les bibliothèques déjà disponibles avec Python.
 
----
 
-## Lancement de l'application
+## Lancement du programme
 
-Depuis la racine du projet :
+Depuis le dossier du projet :
 
-```bash
 python src/main.py
-```
 
----
 
 ## Sauvegarde des données
 
-Les tâches sont sauvegardées dans :
+Les tâches sont enregistrées automatiquement dans le fichier :
 
-```text
 tasks.json
-```
 
-Les données restent disponibles même après la fermeture du programme.
+Cela permet de retrouver les tâches après avoir fermé le programme.
 
----
 
-## Workflow Git utilisé
+## Git utilisé
+
+J'ai utilisé Git pour gérer les versions du projet.
 
 Création d'une branche de travail :
 
-```bash
 git checkout -b feature/semaine1
-```
 
-Ajout des modifications :
+Ajouter les modifications :
 
-```bash
 git add .
-```
 
-Création d'un commit :
+Créer un commit :
 
-```bash
-git commit -m "feat: nouvelle fonctionnalité"
-```
+git commit -m "feat: ajout fonctionnalité"
 
-Envoi vers GitHub :
+Envoyer la branche vers GitHub :
 
-```bash
 git push origin feature/semaine1
-```
 
-Fusion dans la branche principale :
+Revenir sur la branche principale :
 
-```bash
 git checkout main
-git merge feature/semaine1
-```
 
----
+Fusionner la branche feature avec main :
+
+git merge feature/semaine1
+
+Envoyer la version finale :
+
+git push origin main
+
 
 ## Auteur
 
 Arnauld Sadio Ondoua
 
-Stage Altikva – 2026
+Stage Altikva - 2026
+
