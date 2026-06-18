@@ -1,131 +1,117 @@
 import json
 
-FILENAME = "tasks.json"
-
-
-def load_tasks():
-    try:
-        with open(FILENAME, "r", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-
-
-tasks = load_tasks()
+my_tasks = []
 
 
 def save_tasks():
-    with open(FILENAME, "w", encoding="utf-8") as file:
-        json.dump(tasks, file, indent=4, ensure_ascii=False)
+    with open("tasks.json", "w") as file:
+        json.dump(my_tasks, file)
+
+
+def load_tasks():
+    with open("tasks.json", "r") as file:
+        return json.load(file)
+
+
+my_tasks = load_tasks()
 
 
 def add_task():
-    title = input("Nom de la tâche : ")
-    priority = input("Priorité (haute / moyenne / basse) : ")
-    deadline = input("Date d'échéance (AAAA-MM-JJ ou vide) : ")
 
-    task = {
-    "title": title,
-    "done": False,
-    "priority": priority,
-    "deadline": deadline
-}
+    task = input("Ajouter la tache:  ")
 
-    tasks.append(task)
+    print("tache ajoutee avec success")
+
+    my_tasks.append(task)
+
     save_tasks()
-    print("Tâche ajoutée !")
 
 
 def list_tasks():
-    if not tasks:
-        print("Aucune tâche.")
-        return
 
-    priority_order = {
-        "haute": 0,
-        "moyenne": 1,
-        "basse": 2
-    }
+    if len(my_tasks) == 0:
+        print("\n< La liste des taches est actuellement vide >")
 
-    sorted_tasks = sorted(tasks, key=lambda task: priority_order.get(task["priority"], 99))
+    else:
 
-    for i, task in enumerate(sorted_tasks):
-        status = "✅" if task["done"] else "❌"
-        print("tache non termine")
-        print(f"{i}- {status} {task['title']} [Priorité : {task['priority']}] [Deadline : {task.get('deadline', 'aucune')}]")
-    
-    
+        for numero, tache in enumerate(my_tasks):
+            print(f"{numero} - {tache}")
+
+        input("Appuie sur entree pour revenir au menu : ")
+
+
 def complete_task():
-    list_tasks()
 
-    index = int(input("Numéro de la tâche terminée : "))
 
-    if 0 <= index < len(tasks):
-        tasks[index]["done"] = True
-        save_tasks()
-        print("Tâche terminée !")
+    for numero, tache in enumerate(my_tasks):
+        print(f"{numero} - {tache}")
 
-def list_completed_tasks():
-    for task in tasks:
-        if task["done"]:
-            print("Tache terminee", task["title"])
+    num = int(input("Saisir le chiffre correspondant de la tache a terminer : "))
+
+    tache_choisie = my_tasks[num]
+
+    my_tasks[num] = "✅ " + tache_choisie
+
+    save_tasks()
+
+    print("Tache terminee ✅")
 
 
 def delete_task():
-    list_tasks()
 
-    index = int(input("Numéro à supprimer : "))
 
-    if 0 <= index < len(tasks):
+    for numero, tache in enumerate(my_tasks):
+        print(f"{numero} - {tache}")
 
-        confirm = input("Es-tu sûr de vouloir supprimer ? (o/n) : ").lower()
+    num = int(input("Saisir le chiffre de la tâche à supprimer : "))
 
-        if confirm == "o":
-            tasks.pop(index)
-            save_tasks()
-            print("Tâche supprimée !")
-        else:
-            print("Suppression annulée.")
+    reponse=input("voulez-vous vriment supprimer ? (oui/non):  ")  
 
-    
+    if reponse== "oui":
+       del my_tasks[num]
+       save_tasks()
+       print("Tâche supprimée ✅")
+
+    else:
+      print("Suppression annulee.")
+
+
 
 def menu():
-    while True:
-        print("\n--- TO DO LIST ---")
-        print("     TO DO LIST")
-        print("====================")
-        print("1. Ajouter")
-        print("2. Lister")
-        print("3. Terminer")
-        print("4. Supprimer")
-        print("5. affiche tache terminee")
-        print("6. quitter")
 
-        choice = input("Choisis : ")
+    choice = ""
+
+    while choice != "5":
+
+        print("\n   BIENVENUE DANS NOTRE GESTIONNAIRE DE TACHES")
+        print("\n--------- TASKFLOW ----------")
+
+        print("\n1* Ajouter une tâche")
+        print("2* Lister les tâches")
+        print("3* Terminer une tâche")
+        print("4* Supprimer une tâche")
+        print("5* Quitter")
+
+        choice = input("Entrez une option (1/2/3/4/5): ")
+
+        print(f"Tu as choisi : {choice}")
 
         if choice == "1":
             add_task()
 
-        elif choice == "2":
+        if choice == "2":
             list_tasks()
 
-        elif choice == "3":
+        if choice == "3":
             complete_task()
 
-        elif choice == "4":
+        if choice == "4":
             delete_task()
-
-        elif choice == "5":
-             list_completed_tasks()
-            
-
-        elif choice == "5":
-            print("Au revoir !")
-            break
         
+        if choice == "5":
+            print("A binetot!!!")
+
 
 
        
     
-
-        
