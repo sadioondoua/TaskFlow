@@ -2,8 +2,7 @@ import argparse
 
 from todo import add_task, list_tasks, complete_task, delete_task
 
-
-def main():
+def main() -> None:
     """
     Lance l'application TaskFlow.
     """
