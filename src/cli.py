@@ -36,3 +36,4 @@ def menu():
 
         else:
             print("Choix invalide")
+
