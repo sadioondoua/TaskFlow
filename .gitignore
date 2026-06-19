@@ -1,4 +1,12 @@
+# Python
 __pycache__/
 *.pyc
-tasks.json
+
+# Environnement virtuel
 venv/
+
+# Tests
+.pytest_cache/
+
+# Fichiers temporaires
+tasks.json
