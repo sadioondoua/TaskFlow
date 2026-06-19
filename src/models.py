@@ -3,7 +3,7 @@ class Task:
     Représente une tâche.
     """
 
-    def __init__(self, title: str, done: bool = False) -> None:
+    def __init__(self, title: str, done: bool = False):
         """
         Crée une tâche.
 
