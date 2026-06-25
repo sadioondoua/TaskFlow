@@ -3,32 +3,57 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-import todo
+from todo import create_new_task, complete_task, remove_task
+from storage import get_tasks, clear_tasks
 
 
 def test_add_task():
-    todo.my_tasks.clear()
 
-    todo.add_task("Faire les courses")
+    clear_tasks()
 
-    assert "Faire les courses" in todo.my_tasks
+    create_new_task(
+        "Faire les courses",
+        1
+    )
+
+    tasks = get_tasks()
+
+    assert tasks[0].title == "Faire les courses"
+
 
 
 def test_complete_task():
-    todo.my_tasks.clear()
 
-    todo.add_task("Apprendre Python")
+    clear_tasks()
 
-    todo.complete_task(0)
+    create_new_task(
+        "Apprendre Python",
+        1
+    )
 
-    assert todo.my_tasks[0] == "✅ Apprendre Python"
+    tasks = get_tasks()
+
+    complete_task(tasks[0].id)
+
+    tasks = get_tasks()
+
+    assert tasks[0].done is True
+
 
 
 def test_delete_task():
-    todo.my_tasks.clear()
 
-    todo.add_task("Supprimer moi")
+    clear_tasks()
 
-    todo.delete_task(0)
+    create_new_task(
+        "Supprimer moi",
+        1
+    )
 
-    assert len(todo.my_tasks) == 0
+    tasks = get_tasks()
+
+    remove_task(tasks[0].id)
+
+    tasks = get_tasks()
+
+    assert len(tasks) == 0
