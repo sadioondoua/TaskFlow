@@ -11,3 +11,4 @@ venv/
 # Fichiers temporaires
 tasks.json
 
+taskflow.db
