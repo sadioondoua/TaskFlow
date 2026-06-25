@@ -1,42 +1,43 @@
+import argparse
+
 from todo import add_task, list_tasks, complete_task, delete_task
 
 
-def menu():
+def main() -> None:
     """
-    Affiche le menu principal de TaskFlow.
+    Lance l'interface en ligne de commande TaskFlow.
     """
 
-    choice = ""
+    parser = argparse.ArgumentParser(
+        description="Gestionnaire de tâches TaskFlow"
+    )
 
-    while choice != "5":
+    subparsers = parser.add_subparsers(dest="command")
 
-        print("\n--------- TASKFLOW ----------")
-        print("1 - Ajouter une tâche")
-        print("2 - Voir les tâches")
-        print("3 - Terminer une tâche")
-        print("4 - Supprimer une tâche")
-        print("5 - Quitter")
+    add_parser = subparsers.add_parser("add")
+    add_parser.add_argument("task")
 
-        choice = input("Choisir une option : ")
+    subparsers.add_parser("list")
 
-        if choice == "1":
-            add_task()
+    done_parser = subparsers.add_parser("done")
+    done_parser.add_argument("number", type=int)
 
-        elif choice == "2":
-            list_tasks()
+    remove_parser = subparsers.add_parser("remove")
+    remove_parser.add_argument("number", type=int)
 
-        elif choice == "3":
-            complete_task()
+    args = parser.parse_args()
 
-        elif choice == "4":
-            delete_task()
+    if args.command == "add":
+        add_task(args.task)
 
-        elif choice == "5":
-            print("A bientôt")
+    elif args.command == "list":
+        list_tasks()
 
-        else:
-            print("Choix invalide")
+    elif args.command == "done":
+        complete_task(args.number)
 
-            
-if __name__ == "__main__":
-    menu()
+    elif args.command == "remove":
+        delete_task(args.number)
+
+    else:
+        parser.print_help()
