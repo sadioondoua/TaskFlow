@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from todo import create_new_task, complete_task, remove_task
+from cli import create_new_task, complete_task, remove_task
 from storage import get_tasks, clear_tasks
 
 
