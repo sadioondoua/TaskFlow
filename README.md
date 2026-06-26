@@ -7,24 +7,35 @@ TaskFlow est une application de gestion de tâches développée en Python.
 Elle fonctionne dans le terminal et permet de gérer des tâches :
 ajouter une tâche, afficher les tâches, terminer une tâche et supprimer une tâche.
 
-Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, Git et GitHub.
+Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, Git, GitHub, la structuration d'un projet et la gestion des données.
 
 ## Objectif du projet
 
-L'objectif de TaskFlow est de pratiquer le développement d'une application Python complète.
+L'objectif de TaskFlow est de pratiquer le développement d'une application Python complète avec une organisation propre du code.
 
-Le projet permet de travailler l'organisation du code, la gestion des données, l'utilisation de Git et GitHub ainsi que les bonnes pratiques de développement.
+Le projet permet de travailler :
+
+* les fonctions Python
+* les modules
+* les dataclasses
+* la gestion des erreurs
+* SQLite
+* Git et GitHub
+* les bonnes pratiques de développement
 
 ## Fonctionnalités
 
 L'application permet de :
 
-- ajouter une tâche
-- afficher toutes les tâches
-- terminer une tâche
-- supprimer une tâche avec une confirmation
-- sauvegarder les tâches dans un fichier JSON
-- utiliser des commandes dans le terminal avec argparse
+* ajouter une tâche
+* afficher toutes les tâches
+* terminer une tâche
+* supprimer une tâche
+* définir une priorité entre 1 et 5
+* ajouter une date d'échéance
+* valider les entrées utilisateur
+* sauvegarder les données dans une base SQLite
+* utiliser une interface en ligne de commande avec argparse
 
 ## Organisation du projet
 
@@ -32,162 +43,185 @@ Le projet est organisé avec plusieurs dossiers :
 
 src/
 
--main.py : Lancement de l'application et interface en ligne de commande
+* main.py : lancement de l'application
 
--todo.py : Gestion des tâches
+* cli.py : interface en ligne de commande avec argparse
 
--storage.py : Sauvegarde et chargement des données JSON
+* todo.py : logique métier des tâches
 
--models.py : Modèle d'une tâche
+* storage.py : gestion de la sauvegarde SQLite (création, lecture, modification, suppression)
 
--cli.py : Interface utilisateur
-
+* models.py : modèle Task avec dataclass
 
 tests/
 
-- contient les tests du projet
-
+* contient les tests du projet
 
 README.md :
 
-- explique le fonctionnement du projet
-
+* explique le fonctionnement du projet
 
 .gitignore :
 
-- permet d'ignorer certains fichiers dans Git
+* contient les fichiers ignorés par Git
 
+taskflow.db :
 
-tasks.json :
-
-- contient les tâches sauvegardées
-
+* base locale SQLite contenant les tâches
 
 ## Technologies utilisées
 
-- Python 3
-- Git
-- GitHub
-- JSON
-- Visual Studio Code
-
+* Python 3
+* SQLite
+* Git
+* GitHub
+* Visual Studio Code
 
 ## Installation
 
 Cloner le projet :
 
+```bash
 git clone https://github.com/sadioondoua/TaskFlow.git
-
+```
 
 Entrer dans le dossier :
 
+```bash
 cd TaskFlow
-
+```
 
 Créer un environnement virtuel :
 
+```bash
 python -m venv venv
-
+```
 
 Activer l'environnement virtuel :
 
+```bash
 venv\Scripts\activate
-
+```
 
 ## Utilisation de pip
 
-Pour voir les paquets installés :
+Voir les paquets installés :
 
+```bash
 pip list
+```
 
+Installer un paquet :
 
-Pour installer un paquet :
-
+```bash
 pip install nom_du_paquet
-
+```
 
 ## Lancement du programme
 
 Depuis le dossier du projet :
 
+```bash
 python src/main.py
-
+```
 
 ## Commandes disponibles
 
 Ajouter une tâche :
 
+```bash
 python src/main.py add "Ma tâche"
+```
 
+Ajouter une tâche avec priorité :
+
+```bash
+python src/main.py add "Réviser Python" --priority 3
+```
+
+Ajouter une tâche avec une échéance :
+
+```bash
+python src/main.py add "Projet" --priority 2 --due-date 2026-07-01
+```
 
 Afficher les tâches :
 
+```bash
 python src/main.py list
-
+```
 
 Terminer une tâche :
 
-python src/main.py done 0
-
+```bash
+python src/main.py done 1
+```
 
 Supprimer une tâche :
 
-python src/main.py remove 0
-
+```bash
+python src/main.py remove 1
+```
 
 ## Sauvegarde des données
 
-Les tâches sont enregistrées automatiquement dans le fichier :
+Les tâches sont enregistrées automatiquement dans une base locale SQLite :
 
-tasks.json
+```
+taskflow.db
+```
 
-
-Cela permet de retrouver les tâches après avoir fermé le programme.
-
+SQLite permet de conserver les données après fermeture du programme et de gérer les opérations de création, lecture, modification et suppression.
 
 ## Git utilisé
 
 J'ai utilisé Git pour gérer les versions du projet.
 
+Création d'une branche :
 
-Création d'une branche de travail :
-
-git checkout -b feature/semaine1
-
+```bash
+git checkout -b feature/semaine3
+```
 
 Ajouter les modifications :
 
+```bash
 git add .
-
+```
 
 Créer un commit :
 
-git commit -m "feat: ajout fonctionnalité"
-
+```bash
+git commit -m "feat: ajout validation priorité et échéance des tâches"
+```
 
 Envoyer la branche vers GitHub :
 
-git push origin feature/semaine1
+```bash
+git push origin feature/semaine3
+```
 
+Fusionner avec main :
 
-Revenir sur la branche principale :
-
+```bash
 git checkout main
+git merge feature/semaine3
+```
 
+## Ce sur quoi j'ai galéré
 
-Fusionner la branche feature avec main :
+Les principales difficultés rencontrées ont été :
 
-git merge feature/semaine1
-
-
-Envoyer la version finale :
-
-git push origin main
-
+* comprendre la séparation entre les différents modules Python
+* passer d'une sauvegarde JSON à une base SQLite
+* comprendre le fonctionnement de Git avec les branches et les commits
+* gérer les erreurs de saisie utilisateur
+* organiser le code pour qu'il soit plus facile à maintenir
 
 ## Auteur
 
 Arnauld Sadio Ondoua
 
 Stage Altikva - 2026
+
 
