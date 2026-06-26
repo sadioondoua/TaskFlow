@@ -1,6 +1,11 @@
 import argparse
 
-from todo import create_new_task, list_tasks, complete_task, remove_task
+from todo import (
+    create_new_task,
+    list_tasks,
+    complete_task,
+    remove_task
+)
 
 
 def main() -> None:
@@ -15,19 +20,48 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command")
 
 
+    # Commande add
     add_parser = subparsers.add_parser("add")
-    add_parser.add_argument("task")
+
+    add_parser.add_argument(
+        "task",
+        help="Titre de la tâche"
+    )
+
+    add_parser.add_argument(
+        "--priority",
+        type=int,
+        default=1,
+        help="Priorité de la tâche entre 1 et 5"
+    )
+
+    add_parser.add_argument(
+        "--due-date",
+        default=None,
+        help="Date d'échéance au format AAAA-MM-JJ"
+    )
 
 
+    # Commande list
     subparsers.add_parser("list")
 
 
+    # Commande done
     done_parser = subparsers.add_parser("done")
-    done_parser.add_argument("number", type=int)
+
+    done_parser.add_argument(
+        "number",
+        type=int
+    )
 
 
+    # Commande remove
     remove_parser = subparsers.add_parser("remove")
-    remove_parser.add_argument("number", type=int)
+
+    remove_parser.add_argument(
+        "number",
+        type=int
+    )
 
 
     args = parser.parse_args()
@@ -37,7 +71,8 @@ def main() -> None:
 
         create_new_task(
             args.task,
-            priority=1
+            args.priority,
+            args.due_date
         )
 
 

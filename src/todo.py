@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from models import Task
+
 from storage import (
     create_table,
     add_task as save_task,
@@ -11,7 +14,11 @@ from storage import (
 create_table()
 
 
-def create_new_task(title: str, priority: int, due_date: str | None = None) -> None:
+def create_new_task(
+    title: str,
+    priority: int,
+    due_date: str | None = None
+) -> None:
     """
     Crée une nouvelle tâche.
     """
@@ -20,6 +27,27 @@ def create_new_task(title: str, priority: int, due_date: str | None = None) -> N
         print("Erreur : le titre ne peut pas être vide")
         return
 
+
+    if priority < 1 or priority > 5:
+        print("Erreur : la priorité doit être comprise entre 1 et 5")
+        return
+
+
+    if due_date:
+
+        try:
+            datetime.strptime(
+                due_date,
+                "%Y-%m-%d"
+            )
+
+        except ValueError:
+            print(
+                "Erreur : la date doit être au format AAAA-MM-JJ"
+            )
+            return
+
+
     task = Task(
         id=0,
         title=title,
@@ -27,29 +55,37 @@ def create_new_task(title: str, priority: int, due_date: str | None = None) -> N
         due_date=due_date
     )
 
+
     save_task(task)
 
     print("Tâche ajoutée avec succès")
 
 
+
 def list_tasks() -> None:
     """
-    Affiche les tâches.
+    Affiche toutes les tâches.
     """
 
     tasks = get_tasks()
+
 
     if not tasks:
         print("La liste des tâches est vide")
         return
 
+
     for task in tasks:
+
         status = "✅" if task.done else "❌"
+
 
         print(
             f"{task.id} - {status} {task.title} "
-            f"(priorité {task.priority})"
+            f"(priorité {task.priority}) "
+            f"(échéance : {task.due_date})"
         )
+
 
 
 def complete_task(task_id: int) -> None:
@@ -60,6 +96,7 @@ def complete_task(task_id: int) -> None:
     update_task(task_id, True)
 
     print("Tâche terminée ✅")
+
 
 
 def remove_task(task_id: int) -> None:
