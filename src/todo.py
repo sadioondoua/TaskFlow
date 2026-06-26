@@ -1,19 +1,65 @@
-from storage import save_tasks, load_tasks
+from datetime import datetime
+
+from models import Task
+
+from storage import (
+    create_table,
+    add_task as save_task,
+    get_tasks,
+    update_task,
+    delete_task
+)
 
 
-my_tasks = load_tasks()
+create_table()
 
 
-def add_task(task: str) -> None:
+def create_new_task(
+    title: str,
+    priority: int,
+    due_date: str | None = None
+) -> None:
     """
-    Ajoute une nouvelle tâche.
+    Crée une nouvelle tâche.
     """
 
-    my_tasks.append(task)
+    if not title.strip():
+        print("Erreur : le titre ne peut pas être vide")
+        return
 
-    save_tasks(my_tasks)
+
+    if priority < 1 or priority > 5:
+        print("Erreur : la priorité doit être comprise entre 1 et 5")
+        return
+
+
+    if due_date:
+
+        try:
+            datetime.strptime(
+                due_date,
+                "%Y-%m-%d"
+            )
+
+        except ValueError:
+            print(
+                "Erreur : la date doit être au format AAAA-MM-JJ"
+            )
+            return
+
+
+    task = Task(
+        id=0,
+        title=title,
+        priority=priority,
+        due_date=due_date
+    )
+
+
+    save_task(task)
 
     print("Tâche ajoutée avec succès")
+
 
 
 def list_tasks() -> None:
@@ -21,43 +67,43 @@ def list_tasks() -> None:
     Affiche toutes les tâches.
     """
 
-    if len(my_tasks) == 0:
+    tasks = get_tasks()
+
+
+    if not tasks:
         print("La liste des tâches est vide")
-
-    else:
-        for numero, tache in enumerate(my_tasks):
-            print(f"{numero} - {tache}")
+        return
 
 
-def complete_task(number: int) -> None:
+    for task in tasks:
+
+        status = "✅" if task.done else "❌"
+
+
+        print(
+            f"{task.id} - {status} {task.title} "
+            f"(priorité {task.priority}) "
+            f"(échéance : {task.due_date})"
+        )
+
+
+
+def complete_task(task_id: int) -> None:
     """
-    Marque une tâche comme terminée.
+    Termine une tâche.
     """
 
-    try:
-        tache = my_tasks[number]
+    update_task(task_id, True)
 
-        my_tasks[number] = "✅ " + tache
-
-        save_tasks(my_tasks)
-
-        print("Tâche terminée ✅")
-
-    except IndexError:
-        print("Tache inexistante")
+    print("Tâche terminée ✅")
 
 
-def delete_task(number: int) -> None:
+
+def remove_task(task_id: int) -> None:
     """
     Supprime une tâche.
     """
 
-    try:
-        del my_tasks[number]
+    delete_task(task_id)
 
-        save_tasks(my_tasks)
-
-        print("Tâche supprimée ✅")
-
-    except IndexError:
-        print("Cette tâche n'existe pas")
+    print("Tâche supprimée ✅")

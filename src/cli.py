@@ -1,42 +1,96 @@
-from todo import add_task, list_tasks, complete_task, delete_task
+import argparse
+
+from todo import (
+    create_new_task,
+    list_tasks,
+    complete_task,
+    remove_task
+)
 
 
-def menu():
+def main() -> None:
     """
-    Affiche le menu principal de TaskFlow.
+    Lance l'application TaskFlow en ligne de commande.
     """
 
-    choice = ""
+    parser = argparse.ArgumentParser(
+        description="Gestionnaire de tâches TaskFlow"
+    )
 
-    while choice != "5":
+    subparsers = parser.add_subparsers(dest="command")
 
-        print("\n--------- TASKFLOW ----------")
-        print("1 - Ajouter une tâche")
-        print("2 - Voir les tâches")
-        print("3 - Terminer une tâche")
-        print("4 - Supprimer une tâche")
-        print("5 - Quitter")
 
-        choice = input("Choisir une option : ")
+    # Commande add
+    add_parser = subparsers.add_parser("add")
 
-        if choice == "1":
-            add_task()
+    add_parser.add_argument(
+        "task",
+        help="Titre de la tâche"
+    )
 
-        elif choice == "2":
-            list_tasks()
+    add_parser.add_argument(
+        "--priority",
+        type=int,
+        default=1,
+        help="Priorité de la tâche entre 1 et 5"
+    )
 
-        elif choice == "3":
-            complete_task()
+    add_parser.add_argument(
+        "--due-date",
+        default=None,
+        help="Date d'échéance au format AAAA-MM-JJ"
+    )
 
-        elif choice == "4":
-            delete_task()
 
-        elif choice == "5":
-            print("A bientôt")
+    # Commande list
+    subparsers.add_parser("list")
 
-        else:
-            print("Choix invalide")
 
-            
-if __name__ == "__main__":
-    menu()
+    # Commande done
+    done_parser = subparsers.add_parser("done")
+
+    done_parser.add_argument(
+        "number",
+        type=int
+    )
+
+
+    # Commande remove
+    remove_parser = subparsers.add_parser("remove")
+
+    remove_parser.add_argument(
+        "number",
+        type=int
+    )
+
+
+    args = parser.parse_args()
+
+
+    if args.command == "add":
+
+        create_new_task(
+            args.task,
+            args.priority,
+            args.due_date
+        )
+
+
+    elif args.command == "list":
+
+        list_tasks()
+
+
+    elif args.command == "done":
+
+        complete_task(args.number)
+
+
+    elif args.command == "remove":
+
+        remove_task(args.number)
+
+
+    else:
+
+        parser.print_help()
