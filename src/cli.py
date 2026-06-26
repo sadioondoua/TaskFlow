@@ -1,7 +1,7 @@
 import argparse
+from datetime import datetime
 
 from storage import (
-    create_table,
     add_task,
     get_tasks,
     update_task,
@@ -11,116 +11,54 @@ from storage import (
 from models import Task
 
 
-create_table()
-
-
-def create_new_task(
-    title: str,
-    priority: int,
-    due_date: str | None = None
-) -> None:
+def validate_date(date: str | None) -> str | None:
     """
-    Crée une nouvelle tâche après validation.
+    Vérifie que la date respecte le format AAAA-MM-JJ.
     """
 
-    if not title.strip():
-        print("Erreur : le titre ne peut pas être vide")
-        return
+    if date is None:
+        return None
 
-    if priority < 1 or priority > 5:
-        print("Erreur : la priorité doit être comprise entre 1 et 5")
-        return
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+        return date
 
-    task = Task(
-        id=0,
-        title=title,
-        priority=priority,
-        due_date=due_date
-    )
-
-    add_task(task)
-
-    print("Tâche ajoutée avec succès")
-
-
-def list_tasks() -> None:
-    """
-    Affiche toutes les tâches.
-    """
-
-    tasks = get_tasks()
-
-    if not tasks:
-        print("La liste des tâches est vide")
-        return
-
-    for task in tasks:
-
-        status = "✅" if task.done else "❌"
-
-        print(
-            f"{task.id} - {status} {task.title} "
-            f"(priorité {task.priority}) "
-            f"(échéance : {task.due_date})"
+    except ValueError:
+        raise ValueError(
+            "La date doit être au format AAAA-MM-JJ"
         )
-
-
-def complete_task(task_id: int) -> None:
-    """
-    Termine une tâche existante.
-    """
-
-    updated = update_task(task_id, True)
-
-    if updated:
-        print("Tâche terminée ✅")
-    else:
-        print("Erreur : cette tâche n'existe pas")
-
-
-def remove_task(task_id: int) -> None:
-    """
-    Supprime une tâche existante.
-    """
-
-    deleted = delete_task(task_id)
-
-    if deleted:
-        print("Tâche supprimée ✅")
-    else:
-        print("Erreur : cette tâche n'existe pas")
 
 
 def main() -> None:
     """
-    Lance l'application TaskFlow avec argparse.
+    Lance l'application TaskFlow en ligne de commande.
     """
 
     parser = argparse.ArgumentParser(
         description="Gestionnaire de tâches TaskFlow"
     )
 
-
-    subparsers = parser.add_subparsers(
-        dest="command"
-    )
+    subparsers = parser.add_subparsers(dest="command")
 
 
     add_parser = subparsers.add_parser("add")
 
     add_parser.add_argument(
-        "task"
+        "task",
+        help="Titre de la tâche"
     )
 
     add_parser.add_argument(
         "--priority",
         type=int,
-        default=1
+        default=1,
+        help="Priorité entre 1 et 5"
     )
 
     add_parser.add_argument(
         "--due-date",
-        default=None
+        default=None,
+        help="Date au format AAAA-MM-JJ"
     )
 
 
@@ -146,30 +84,62 @@ def main() -> None:
     args = parser.parse_args()
 
 
-    if args.command == "add":
+    try:
 
-        create_new_task(
-            args.task,
-            args.priority,
-            args.due_date
-        )
+        if args.command == "add":
 
+            task = Task(
+                id=None,
+                title=args.task,
+                priority=args.priority,
+                due_date=validate_date(args.due_date),
+                done=False
+            )
 
-    elif args.command == "list":
+            add_task(task)
 
-        list_tasks()
-
-
-    elif args.command == "done":
-
-        complete_task(args.number)
+            print("Tâche ajoutée avec succès")
 
 
-    elif args.command == "remove":
+        elif args.command == "list":
 
-        remove_task(args.number)
+            tasks = get_tasks()
+
+            if not tasks:
+                print("La liste des tâches est vide")
+
+            else:
+
+                for task in tasks:
+
+                    print(
+                        f"{task.id} - "
+                        f"{'✅' if task.done else '❌'} "
+                        f"{task.title} "
+                        f"(priorité {task.priority}) "
+                        f"(échéance : {task.due_date})"
+                    )
 
 
-    else:
+        elif args.command == "done":
 
-        parser.print_help()
+            update_task(args.number)
+
+            print("Tâche terminée ✅")
+
+
+        elif args.command == "remove":
+
+            delete_task(args.number)
+
+            print("Tâche supprimée")
+
+
+        else:
+
+            parser.print_help()
+
+
+    except ValueError as error:
+
+        print(f"Erreur : {error}")
