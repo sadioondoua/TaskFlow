@@ -1,43 +1,17 @@
 import argparse
-from datetime import datetime
 
-from models import Task
 from storage import (
+    create_table,
     add_task,
     get_tasks,
     update_task,
     delete_task
 )
 
-
-def validate_priority(priority: int) -> None:
-    """
-    Vérifie que la priorité est comprise entre 1 et 5.
-    """
-
-    if priority < 1 or priority > 5:
-        raise ValueError(
-            "La priorité doit être comprise entre 1 et 5"
-        )
+from models import Task
 
 
-def validate_due_date(due_date: str | None) -> None:
-    """
-    Vérifie le format de la date d'échéance.
-    """
-
-    if due_date is not None:
-
-        try:
-            datetime.strptime(
-                due_date,
-                "%Y-%m-%d"
-            )
-
-        except ValueError:
-            raise ValueError(
-                "La date doit être au format AAAA-MM-JJ"
-            )
+create_table()
 
 
 def create_new_task(
@@ -46,21 +20,16 @@ def create_new_task(
     due_date: str | None = None
 ) -> None:
     """
-    Crée une nouvelle tâche.
+    Crée une nouvelle tâche après validation.
     """
 
     if not title.strip():
         print("Erreur : le titre ne peut pas être vide")
         return
 
-    try:
-        validate_priority(priority)
-        validate_due_date(due_date)
-
-    except ValueError as error:
-        print(f"Erreur : {error}")
+    if priority < 1 or priority > 5:
+        print("Erreur : la priorité doit être comprise entre 1 et 5")
         return
-
 
     task = Task(
         id=0,
@@ -68,7 +37,6 @@ def create_new_task(
         priority=priority,
         due_date=due_date
     )
-
 
     add_task(task)
 
@@ -82,11 +50,9 @@ def list_tasks() -> None:
 
     tasks = get_tasks()
 
-
     if not tasks:
         print("La liste des tâches est vide")
         return
-
 
     for task in tasks:
 
@@ -101,32 +67,34 @@ def list_tasks() -> None:
 
 def complete_task(task_id: int) -> None:
     """
-    Termine une tâche.
+    Termine une tâche existante.
     """
 
-    update_task(
-        task_id,
-        True
-    )
+    updated = update_task(task_id, True)
 
-    print("Tâche terminée ✅")
+    if updated:
+        print("Tâche terminée ✅")
+    else:
+        print("Erreur : cette tâche n'existe pas")
 
 
 def remove_task(task_id: int) -> None:
     """
-    Supprime une tâche.
+    Supprime une tâche existante.
     """
 
-    delete_task(task_id)
+    deleted = delete_task(task_id)
 
-    print("Tâche supprimée ✅")
+    if deleted:
+        print("Tâche supprimée ✅")
+    else:
+        print("Erreur : cette tâche n'existe pas")
 
 
 def main() -> None:
     """
-    Lance l'application TaskFlow en ligne de commande.
+    Lance l'application TaskFlow avec argparse.
     """
-
 
     parser = argparse.ArgumentParser(
         description="Gestionnaire de tâches TaskFlow"
@@ -194,16 +162,12 @@ def main() -> None:
 
     elif args.command == "done":
 
-        complete_task(
-            args.number
-        )
+        complete_task(args.number)
 
 
     elif args.command == "remove":
 
-        remove_task(
-            args.number
-        )
+        remove_task(args.number)
 
 
     else:

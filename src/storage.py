@@ -67,7 +67,7 @@ def add_task(task: Task) -> None:
 
 def get_tasks() -> list[Task]:
     """
-    Retourne toutes les tâches.
+    Retourne toutes les tâches enregistrées.
     """
 
     try:
@@ -94,12 +94,16 @@ def get_tasks() -> list[Task]:
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
+
         return []
 
 
-def update_task(task_id: int, done: bool) -> None:
+def update_task(task_id: int, done: bool) -> bool:
     """
     Modifie le statut d'une tâche.
+
+    Retourne True si une tâche existe et est modifiée.
+    Retourne False si aucune tâche correspondante n'est trouvée.
     """
 
     try:
@@ -117,15 +121,24 @@ def update_task(task_id: int, done: bool) -> None:
         )
 
         connection.commit()
+
+        modified = cursor.rowcount
+
         connection.close()
+
+        return modified > 0
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
 
+        return False
 
-def delete_task(task_id: int) -> None:
+
+def delete_task(task_id: int) -> bool:
     """
     Supprime une tâche.
+
+    Retourne True si une tâche a été supprimée.
     """
 
     try:
@@ -142,13 +155,22 @@ def delete_task(task_id: int) -> None:
         )
 
         connection.commit()
+
+        deleted = cursor.rowcount
+
         connection.close()
+
+        return deleted > 0
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
+
+        return False
+
+
 def clear_tasks() -> None:
     """
-     Supprime toutes les tâches de la base.
+    Supprime toutes les tâches de la base.
     """
 
     try:
