@@ -9,6 +9,4 @@ venv/
 .pytest_cache/
 
 # Fichiers temporaires
-tasks.json
-
 taskflow.db
