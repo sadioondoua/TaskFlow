@@ -4,8 +4,12 @@ from typing import Optional
 
 @dataclass
 class Task:
-    id: int
-    title: str
-    priority: int
+    """
+    Représente une tâche de TaskFlow.
+    """
+
+    id: Optional[int] = None
+    title: str = ""
+    priority: int = 1
     due_date: Optional[str] = None
     done: bool = False

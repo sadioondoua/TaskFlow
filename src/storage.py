@@ -1,9 +1,10 @@
 import sqlite3
+from pathlib import Path
 
 from models import Task
 
 
-DATABASE = "taskflow.db"
+DATABASE = Path(__file__).resolve().parent.parent / "taskflow.db"
 
 
 def create_table() -> None:
@@ -75,7 +76,9 @@ def get_tasks() -> list[Task]:
 
         cursor = connection.cursor()
 
-        cursor.execute("SELECT * FROM tasks")
+        cursor.execute(
+            "SELECT * FROM tasks"
+        )
 
         rows = cursor.fetchall()
 
@@ -103,7 +106,6 @@ def update_task(task_id: int, done: bool) -> bool:
     Modifie le statut d'une tâche.
 
     Retourne True si une tâche existe et est modifiée.
-    Retourne False si aucune tâche correspondante n'est trouvée.
     """
 
     try:
@@ -117,7 +119,10 @@ def update_task(task_id: int, done: bool) -> bool:
             SET done = ?
             WHERE id = ?
             """,
-            (done, task_id)
+            (
+                done,
+                task_id
+            )
         )
 
         connection.commit()
