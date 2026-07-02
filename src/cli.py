@@ -23,9 +23,7 @@ def validate_date(date: str | None) -> str | None:
         return date
 
     except ValueError:
-        raise ValueError(
-            "La date doit être au format AAAA-MM-JJ."
-        )
+        raise ValueError("La date doit être au format AAAA-MM-JJ.")
 
 
 def main() -> None:
@@ -33,31 +31,21 @@ def main() -> None:
     Lance l'application TaskFlow en ligne de commande.
     """
 
-    parser = argparse.ArgumentParser(
-        description="Gestionnaire de tâches TaskFlow"
-    )
+    parser = argparse.ArgumentParser(description="Gestionnaire de tâches TaskFlow")
 
     subparsers = parser.add_subparsers(dest="command")
 
     # Commande add
     add_parser = subparsers.add_parser("add")
 
+    add_parser.add_argument("task", help="Titre de la tâche")
+
     add_parser.add_argument(
-        "task",
-        help="Titre de la tâche"
+        "--priority", type=int, default=1, help="Priorité entre 1 et 5"
     )
 
     add_parser.add_argument(
-        "--priority",
-        type=int,
-        default=1,
-        help="Priorité entre 1 et 5"
-    )
-
-    add_parser.add_argument(
-        "--due-date",
-        default=None,
-        help="Date au format AAAA-MM-JJ"
+        "--due-date", default=None, help="Date au format AAAA-MM-JJ"
     )
 
     # Commande list
@@ -66,27 +54,17 @@ def main() -> None:
     # Commande done
     done_parser = subparsers.add_parser("done")
 
-    done_parser.add_argument(
-        "number",
-        type=int,
-        help="Identifiant de la tâche"
-    )
+    done_parser.add_argument("number", type=int, help="Identifiant de la tâche")
 
     # Commande remove
     remove_parser = subparsers.add_parser("remove")
 
-    remove_parser.add_argument(
-        "number",
-        type=int,
-        help="Identifiant de la tâche"
-    )
+    remove_parser.add_argument("number", type=int, help="Identifiant de la tâche")
 
     args = parser.parse_args()
 
     try:
-
         if args.command == "add":
-
             if not args.task.strip():
                 print("Erreur : le titre ne peut pas être vide.")
                 return
@@ -100,7 +78,7 @@ def main() -> None:
                 title=args.task,
                 priority=args.priority,
                 due_date=validate_date(args.due_date),
-                done=False
+                done=False,
             )
 
             add_task(task)
@@ -108,7 +86,6 @@ def main() -> None:
             print("Tâche ajoutée avec succès")
 
         elif args.command == "list":
-
             tasks = get_tasks()
 
             if not tasks:
@@ -116,7 +93,6 @@ def main() -> None:
                 return
 
             for task in tasks:
-
                 due_date = task.due_date if task.due_date else "Aucune"
 
                 print(
@@ -128,23 +104,19 @@ def main() -> None:
                 )
 
         elif args.command == "done":
-
             if update_task(args.number, True):
                 print("Tâche terminée ✅")
             else:
                 print("Erreur : aucune tâche trouvée avec cet identifiant.")
 
         elif args.command == "remove":
-
             if delete_task(args.number):
                 print("Tâche supprimée ✅")
             else:
                 print("Erreur : aucune tâche trouvée avec cet identifiant.")
 
         else:
-
             parser.print_help()
 
     except ValueError as error:
-
         print(f"Erreur : {error}")

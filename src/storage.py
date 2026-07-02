@@ -51,12 +51,7 @@ def add_task(task: Task) -> None:
             INSERT INTO tasks(title, priority, due_date, done)
             VALUES (?, ?, ?, ?)
             """,
-            (
-                task.title,
-                task.priority,
-                task.due_date,
-                task.done
-            )
+            (task.title, task.priority, task.due_date, task.done),
         )
 
         connection.commit()
@@ -76,9 +71,7 @@ def get_tasks() -> list[Task]:
 
         cursor = connection.cursor()
 
-        cursor.execute(
-            "SELECT * FROM tasks"
-        )
+        cursor.execute("SELECT * FROM tasks")
 
         rows = cursor.fetchall()
 
@@ -90,7 +83,7 @@ def get_tasks() -> list[Task]:
                 title=row[1],
                 priority=row[2],
                 due_date=row[3],
-                done=bool(row[4])
+                done=bool(row[4]),
             )
             for row in rows
         ]
@@ -119,10 +112,7 @@ def update_task(task_id: int, done: bool) -> bool:
             SET done = ?
             WHERE id = ?
             """,
-            (
-                done,
-                task_id
-            )
+            (done, task_id),
         )
 
         connection.commit()
@@ -156,7 +146,7 @@ def delete_task(task_id: int) -> bool:
             DELETE FROM tasks
             WHERE id = ?
             """,
-            (task_id,)
+            (task_id,),
         )
 
         connection.commit()
@@ -183,9 +173,7 @@ def clear_tasks() -> None:
 
         cursor = connection.cursor()
 
-        cursor.execute(
-            "DELETE FROM tasks"
-        )
+        cursor.execute("DELETE FROM tasks")
 
         connection.commit()
 
