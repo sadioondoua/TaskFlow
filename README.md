@@ -4,7 +4,7 @@
 
 TaskFlow est une application de gestion de tâches développée en Python.
 
-Elle fonctionne dans le terminal et permet de gérer des tâches :
+Elle fonctionne en ligne de commande et permet de gérer des tâches :
 ajouter une tâche, afficher les tâches, terminer une tâche et supprimer une tâche.
 
 Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, Git et GitHub.
@@ -13,7 +13,7 @@ Ce projet a été réalisé pendant le stage Altikva afin de pratiquer Python, G
 
 L'objectif de TaskFlow est de pratiquer le développement d'une application Python complète.
 
-Le projet permet de travailler l'organisation du code, la gestion des données, l'utilisation de Git et GitHub ainsi que les bonnes pratiques de développement.
+Le projet permet de travailler l'organisation du code, la gestion des données avec SQLite, l'écriture de tests automatisés et la mise en place d'une intégration continue avec GitHub Actions.
 
 ## Fonctionnalités
 
@@ -35,34 +35,34 @@ Le projet est organisé avec plusieurs dossiers :
 
 src/
 
--main.py : lancement de l'application
-
--cli.py : interface utilisateur avec argparse
-
--storage.py : gestion de la sauvegarde SQLite
-
--models.py : modèle d'une tâche avec dataclass
-
+- main.py : lancement de l'application
+- cli.py : interface utilisateur avec argparse
+- storage.py : gestion de la base SQLite (CRUD)
+- models.py : modèle d'une tâche avec dataclass
 
 tests/
 
-- contient les tests du projet
+- test_todo.py : contient les tests automatisés avec pytest
 
+.github/
+
+- workflows/python-test.yml : exécution automatique des tests avec GitHub Actions
 
 README.md :
 
-- explique le fonctionnement du projet
-
+- documentation du projet
 
 .gitignore :
 
-- permet d'ignorer certains fichiers dans Git
-
+- permet d'ignorer les fichiers qui ne doivent pas être envoyés sur GitHub
 
 taskflow.db :
 
-- contient la base locale SQLite
+- contient la base de données SQLite
 
+requirements.txt :
+
+- contient les dépendances du projet
 
 ## Technologies utilisées
 
@@ -73,8 +73,10 @@ taskflow.db :
 - argparse
 - dataclasses
 - datetime
+- pytest
+- Ruff
+- GitHub Actions
 - Visual Studio Code
-
 
 ## Installation
 
@@ -82,21 +84,21 @@ Cloner le projet :
 
 git clone https://github.com/sadioondoua/TaskFlow.git
 
-
 Entrer dans le dossier :
 
 cd TaskFlow
-
 
 Créer un environnement virtuel :
 
 python -m venv venv
 
-
 Activer l'environnement virtuel :
 
 venv\Scripts\activate
 
+Installer les dépendances :
+
+pip install -r requirements.txt
 
 ## Utilisation de pip
 
@@ -104,11 +106,9 @@ Pour voir les paquets installés :
 
 pip list
 
+Pour installer les dépendances du projet :
 
-Pour installer un paquet :
-
-pip install nom_du_paquet
-
+pip install -r requirements.txt
 
 ## Lancement du programme
 
@@ -116,117 +116,126 @@ Depuis le dossier du projet :
 
 python src/main.py
 
-
 ## Commandes disponibles
 
 Ajouter une tâche :
 
 python src/main.py add "Ma tâche"
 
-
 Ajouter une tâche avec une priorité :
 
 python src/main.py add "Réviser Python" --priority 3
 
-
-Ajouter une tâche avec priorité et échéance :
+Ajouter une tâche avec une priorité et une échéance :
 
 python src/main.py add "Projet SQLite" --priority 2 --due-date 2026-07-01
-
 
 Afficher les tâches :
 
 python src/main.py list
 
-
 Terminer une tâche :
 
-python src/main.py done 0
-
+python src/main.py done 1
 
 Supprimer une tâche :
 
-python src/main.py remove 0
-
+python src/main.py remove 1
 
 ## Sauvegarde des données
 
-Les tâches sont enregistrées automatiquement dans une base locale SQLite :
+Les tâches sont enregistrées automatiquement dans une base de données SQLite.
 
-taskflow.db
-
-
-Cela permet de retrouver les tâches après avoir fermé le programme.
-
-La sauvegarde utilise SQLite avec les opérations :
+Les opérations suivantes sont prises en charge :
 
 - création
 - lecture
 - modification
 - suppression
 
-
 ## Validation des données
 
-Les données saisies sont vérifiées avant l'enregistrement.
+Les données saisies sont vérifiées avant leur enregistrement.
 
-La priorité doit être comprise entre 1 et 5.
+- la priorité doit être comprise entre 1 et 5
+- la date doit respecter le format AAAA-MM-JJ
+- le titre d'une tâche ne peut pas être vide
 
-Les dates d'échéance doivent respecter le format :
+## Tests
 
-AAAA-MM-JJ
+Le projet utilise pytest pour vérifier le bon fonctionnement des principales fonctionnalités.
 
+Pour lancer les tests :
 
-Le module datetime est utilisé pour vérifier les dates.
+pytest -v
 
+Les tests couvrent notamment :
+
+- l'ajout d'une tâche
+- l'affichage des tâches
+- la modification du statut d'une tâche
+- la suppression d'une tâche
+- le stockage des données
+
+## Qualité du code
+
+Le projet utilise Ruff pour vérifier la qualité et le style du code.
+
+Vérifier le code :
+
+ruff check .
+
+Formater le code :
+
+ruff format .
+
+## Intégration continue
+
+Le projet utilise GitHub Actions.
+
+À chaque push sur GitHub, un workflow est exécuté automatiquement afin de :
+
+- installer les dépendances
+- vérifier le code avec Ruff
+- lancer les tests pytest
+
+Cela permet de vérifier que le projet reste fonctionnel après chaque modification.
 
 ## Git utilisé
 
-J'ai utilisé Git pour gérer les versions du projet.
+J'ai utilisé Git pour gérer les différentes versions du projet.
 
+Création d'une branche :
 
-Création d'une branche de travail :
-
-git checkout -b feature/semaine3
-
+git checkout -b feature/semaine4
 
 Ajouter les modifications :
 
 git add .
 
-
 Créer un commit :
 
-git commit -m "feat: ajout fonctionnalité"
+git commit -m "feat: ajout des tests et de la CI"
 
+Envoyer la branche :
 
-Envoyer la branche vers GitHub :
+git push origin feature/semaine4
 
-git push origin feature/semaine3
-
-
-Revenir sur la branche principale :
+Fusionner avec la branche principale :
 
 git checkout main
 
-
-Fusionner la branche feature avec main :
-
-git merge feature/semaine3
-
+git merge feature/semaine4
 
 Envoyer la version finale :
 
 git push origin main
 
+## Version du projet
 
-Version du projet :
+v0.3
 
-v0.2
-
-
-Cette version correspond à la migration du stockage JSON vers SQLite.
-
+Cette version ajoute les tests automatisés avec pytest, la vérification du code avec Ruff et l'intégration continue avec GitHub Actions.
 
 ## Auteur
 
