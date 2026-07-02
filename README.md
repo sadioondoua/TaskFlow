@@ -1,5 +1,9 @@
 # TaskFlow
 
+
+
+!\[Python CI](https://github.com/sadioondoua/TaskFlow/actions/workflows/python-test.yml/badge.svg)
+
 ## Présentation
 
 TaskFlow est une application de gestion de tâches développée en Python.
@@ -19,15 +23,15 @@ Le projet permet de travailler l'organisation du code, la gestion des données a
 
 L'application permet de :
 
-- ajouter une tâche
-- afficher toutes les tâches
-- terminer une tâche
-- supprimer une tâche
-- définir une priorité entre 1 et 5
-- ajouter une date d'échéance
-- valider les entrées utilisateur
-- sauvegarder les tâches dans une base SQLite
-- utiliser des commandes dans le terminal avec argparse
+* ajouter une tâche
+* afficher toutes les tâches
+* terminer une tâche
+* supprimer une tâche
+* définir une priorité entre 1 et 5
+* ajouter une date d'échéance
+* valider les entrées utilisateur
+* sauvegarder les tâches dans une base SQLite
+* utiliser des commandes dans le terminal avec argparse
 
 ## Organisation du projet
 
@@ -35,48 +39,48 @@ Le projet est organisé avec plusieurs dossiers :
 
 src/
 
-- main.py : lancement de l'application
-- cli.py : interface utilisateur avec argparse
-- storage.py : gestion de la base SQLite (CRUD)
-- models.py : modèle d'une tâche avec dataclass
+* main.py : lancement de l'application
+* cli.py : interface utilisateur avec argparse
+* storage.py : gestion de la base SQLite (CRUD)
+* models.py : modèle d'une tâche avec dataclass
 
 tests/
 
-- test_todo.py : contient les tests automatisés avec pytest
+* test\_todo.py : contient les tests automatisés avec pytest
 
 .github/
 
-- workflows/python-test.yml : exécution automatique des tests avec GitHub Actions
+* workflows/python-test.yml : exécution automatique des tests avec GitHub Actions
 
 README.md :
 
-- documentation du projet
+* documentation du projet
 
 .gitignore :
 
-- permet d'ignorer les fichiers qui ne doivent pas être envoyés sur GitHub
+* permet d'ignorer les fichiers qui ne doivent pas être envoyés sur GitHub
 
 taskflow.db :
 
-- contient la base de données SQLite
+* contient la base de données SQLite
 
 requirements.txt :
 
-- contient les dépendances du projet
+* contient les dépendances du projet
 
 ## Technologies utilisées
 
-- Python 3
-- Git
-- GitHub
-- SQLite
-- argparse
-- dataclasses
-- datetime
-- pytest
-- Ruff
-- GitHub Actions
-- Visual Studio Code
+* Python 3
+* Git
+* GitHub
+* SQLite
+* argparse
+* dataclasses
+* datetime
+* pytest
+* Ruff
+* GitHub Actions
+* Visual Studio Code
 
 ## Installation
 
@@ -94,7 +98,7 @@ python -m venv venv
 
 Activer l'environnement virtuel :
 
-venv\Scripts\activate
+venv\\Scripts\\activate
 
 Installer les dépendances :
 
@@ -148,18 +152,18 @@ Les tâches sont enregistrées automatiquement dans une base de données SQLite.
 
 Les opérations suivantes sont prises en charge :
 
-- création
-- lecture
-- modification
-- suppression
+* création
+* lecture
+* modification
+* suppression
 
 ## Validation des données
 
 Les données saisies sont vérifiées avant leur enregistrement.
 
-- la priorité doit être comprise entre 1 et 5
-- la date doit respecter le format AAAA-MM-JJ
-- le titre d'une tâche ne peut pas être vide
+* la priorité doit être comprise entre 1 et 5
+* la date doit respecter le format AAAA-MM-JJ
+* le titre d'une tâche ne peut pas être vide
 
 ## Tests
 
@@ -171,11 +175,11 @@ pytest -v
 
 Les tests couvrent notamment :
 
-- l'ajout d'une tâche
-- l'affichage des tâches
-- la modification du statut d'une tâche
-- la suppression d'une tâche
-- le stockage des données
+* l'ajout d'une tâche
+* l'affichage des tâches
+* la modification du statut d'une tâche
+* la suppression d'une tâche
+* le stockage des données
 
 ## Qualité du code
 
@@ -195,9 +199,9 @@ Le projet utilise GitHub Actions.
 
 À chaque push sur GitHub, un workflow est exécuté automatiquement afin de :
 
-- installer les dépendances
-- vérifier le code avec Ruff
-- lancer les tests pytest
+* installer les dépendances
+* vérifier le code avec Ruff
+* lancer les tests pytest
 
 Cela permet de vérifier que le projet reste fonctionnel après chaque modification.
 
@@ -242,3 +246,4 @@ Cette version ajoute les tests automatisés avec pytest, la vérification du cod
 Arnauld Sadio Ondoua
 
 Stage Altikva - 2026
+
