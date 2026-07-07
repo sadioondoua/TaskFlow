@@ -13,3 +13,4 @@ class Task:
     priority: int = 1
     due_date: Optional[str] = None
     done: bool = False
+    holiday: bool = False

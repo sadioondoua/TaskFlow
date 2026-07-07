@@ -8,5 +8,14 @@ venv/
 # Tests
 .pytest_cache/
 
-# Fichiers temporaires
+# Ruff
+.ruff_cache/
+
+# Base de données
 taskflow.db
+
+# Exports
+tasks.csv
+
+# Variables d'environnement
+.env

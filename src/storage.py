@@ -24,7 +24,8 @@ def create_table() -> None:
                 title TEXT NOT NULL,
                 priority INTEGER NOT NULL,
                 due_date TEXT,
-                done BOOLEAN NOT NULL
+                done BOOLEAN NOT NULL,
+                holiday BOOLEAN NOT NULL
             )
             """
         )
@@ -48,10 +49,16 @@ def add_task(task: Task) -> None:
 
         cursor.execute(
             """
-            INSERT INTO tasks(title, priority, due_date, done)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO tasks(title, priority, due_date, done, holiday)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (task.title, task.priority, task.due_date, task.done),
+            (
+                task.title,
+                task.priority,
+                task.due_date,
+                task.done,
+                task.holiday,
+            ),
         )
 
         connection.commit()
@@ -84,6 +91,7 @@ def get_tasks() -> list[Task]:
                 priority=row[2],
                 due_date=row[3],
                 done=bool(row[4]),
+                holiday=bool(row[5]),
             )
             for row in rows
         ]
