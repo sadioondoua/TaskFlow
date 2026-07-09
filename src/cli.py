@@ -2,6 +2,7 @@ import argparse
 from datetime import datetime
 
 from analyse import analyse_tasks
+from export import export_tasks_csv
 from models import Task
 from storage import (
     add_task,
@@ -37,7 +38,6 @@ def main() -> None:
 
     subparsers = parser.add_subparsers(dest="command")
 
-    # Commande add
     add_parser = subparsers.add_parser("add")
 
     add_parser.add_argument("task", help="Titre de la tâche")
@@ -55,10 +55,8 @@ def main() -> None:
         help="Date au format AAAA-MM-JJ",
     )
 
-    # Commande list
     subparsers.add_parser("list")
 
-    # Commande done
     done_parser = subparsers.add_parser("done")
 
     done_parser.add_argument(
@@ -67,7 +65,6 @@ def main() -> None:
         help="Identifiant de la tâche",
     )
 
-    # Commande remove
     remove_parser = subparsers.add_parser("remove")
 
     remove_parser.add_argument(
@@ -76,8 +73,10 @@ def main() -> None:
         help="Identifiant de la tâche",
     )
 
-    # Commande stats
     subparsers.add_parser("stats")
+
+    # Nouvelle commande export
+    subparsers.add_parser("export")
 
     args = parser.parse_args()
 
@@ -156,6 +155,10 @@ def main() -> None:
 
         elif args.command == "stats":
             analyse_tasks()
+
+        elif args.command == "export":
+            export_tasks_csv()
+            print("Export CSV terminé : tasks.csv")
 
         else:
             parser.print_help()
