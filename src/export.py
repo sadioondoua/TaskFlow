@@ -35,5 +35,3 @@ def export_tasks_csv(filename: str = "tasks.csv") -> None:
                     task.holiday,
                 ]
             )
-
-    
