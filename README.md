@@ -2,7 +2,7 @@
 
 
 
-!\[Python CI](https://github.com/sadioondoua/TaskFlow/actions/workflows/python-test.yml/badge.svg)
+![Python CI](https://github.com/sadioondoua/TaskFlow/actions/workflows/python-test.yml/badge.svg)
 
 ## Présentation
 
