@@ -1,5 +1,12 @@
-import requests
+import os
 from datetime import datetime
+
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv("HOLIDAY_API_KEY")
 
 
 def is_holiday(date: str, country: str = "FR") -> bool:
@@ -45,4 +52,8 @@ def is_holiday(date: str, country: str = "FR") -> bool:
 
     except requests.exceptions.JSONDecodeError:
         print("Erreur API : réponse JSON invalide.")
+        return False
+
+    except requests.exceptions.RequestException as error:
+        print(f"Erreur API : {error}")
         return False
