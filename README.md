@@ -241,6 +241,72 @@ v0.3
 
 Cette version ajoute les tests automatisés avec pytest, la vérification du code avec Ruff et l'intégration continue avec GitHub Actions.
 
+# 🌐 API FastAPI
+
+L'application TaskFlow possède également une interface Web développée avec FastAPI.
+
+## Lancer l'API
+
+```bash
+python -m uvicorn src.web_api:app --reload
+```
+
+L'API est disponible à l'adresse :
+
+```
+http://127.0.0.1:8000
+```
+
+La documentation interactive Swagger est disponible à :
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## Routes disponibles
+
+### GET /tasks
+
+Retourne toutes les tâches.
+
+Exemple :
+
+```bash
+curl http://127.0.0.1:8000/tasks
+```
+
+---
+
+### POST /tasks
+
+Ajoute une nouvelle tâche.
+
+Exemple :
+
+```json
+{
+  "title": "Apprendre FastAPI",
+  "priority": 2,
+  "due_date": "2026-07-30",
+  "done": false,
+  "holiday": false
+}
+```
+
+---
+
+### PATCH /tasks/{id}/done
+
+Marque une tâche comme terminée.
+
+Exemple :
+
+```bash
+curl -X PATCH http://127.0.0.1:8000/tasks/195/done
+```
+
 ## Auteur
 
 Arnauld Sadio Ondoua

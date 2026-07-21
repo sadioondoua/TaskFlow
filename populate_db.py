@@ -1,10 +1,5 @@
-import sys
-from pathlib import Path
-
-sys.path.append(str(Path(__file__).parent / "src"))
-
-from models import Task
-from storage import add_task
+from src.models import Task
+from src.storage import add_task
 
 tasks = [
     ("Réviser Python", 1, "2026-07-10"),
