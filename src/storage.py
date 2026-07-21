@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-from src.models import Task
+from models import Task
 
 
 DATABASE = Path(__file__).resolve().parent.parent / "taskflow.db"
