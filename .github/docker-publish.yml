@@ -1,0 +1,35 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+
+      - name: Récupération du projet
+        uses: actions/checkout@v4
+
+      - name: Connexion à GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build de l'image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/taskflow:latest .
+
+      - name: Publication sur GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/taskflow:latest
