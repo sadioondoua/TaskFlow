@@ -1,7 +1,10 @@
 import sqlite3
 from pathlib import Path
 
-from models import Task
+try:
+    from src.models import Task
+except ModuleNotFoundError:
+    from models import Task
 
 
 DATABASE = Path(__file__).resolve().parent.parent / "taskflow.db"
