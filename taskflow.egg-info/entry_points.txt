@@ -1,0 +1,2 @@
+[console_scripts]
+taskflow = src.main:main
