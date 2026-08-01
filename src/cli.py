@@ -11,6 +11,7 @@ from src.storage import (
     delete_task,
 )
 from src.api import is_holiday
+from src.logger_config import logger
 
 
 def validate_date(date: str | None) -> str | None:
@@ -75,7 +76,6 @@ def main() -> None:
 
     subparsers.add_parser("stats")
 
-    # Nouvelle commande export
     subparsers.add_parser("export")
 
     args = parser.parse_args()
@@ -119,6 +119,7 @@ def main() -> None:
             )
 
             add_task(task)
+            logger.info(f"Tâche ajoutée : {task.title}")
 
             print("Tâche ajoutée avec succès")
 
@@ -143,12 +144,14 @@ def main() -> None:
 
         elif args.command == "done":
             if update_task(args.number, True):
+                logger.info(f"Tâche terminée : {args.number}")
                 print("Tâche terminée ✅")
             else:
                 print("Erreur : aucune tâche trouvée avec cet identifiant.")
 
         elif args.command == "remove":
             if delete_task(args.number):
+                logger.info(f"Tâche supprimée : {args.number}")
                 print("Tâche supprimée ✅")
             else:
                 print("Erreur : aucune tâche trouvée avec cet identifiant.")

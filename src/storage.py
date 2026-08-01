@@ -1,4 +1,5 @@
 import sqlite3
+import configparser
 from pathlib import Path
 
 try:
@@ -7,14 +8,13 @@ except ModuleNotFoundError:
     from models import Task
 
 
-DATABASE = Path(__file__).resolve().parent.parent / "taskflow.db"
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+DATABASE = Path(config["DATABASE"]["name"])
 
 
 def create_table() -> None:
-    """
-    Crée la table tasks si elle n'existe pas.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
@@ -41,10 +41,6 @@ def create_table() -> None:
 
 
 def add_task(task: Task) -> None:
-    """
-    Ajoute une tâche dans la base SQLite.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
@@ -72,10 +68,6 @@ def add_task(task: Task) -> None:
 
 
 def get_tasks() -> list[Task]:
-    """
-    Retourne toutes les tâches enregistrées.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
@@ -101,17 +93,10 @@ def get_tasks() -> list[Task]:
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
-
         return []
 
 
 def update_task(task_id: int, done: bool) -> bool:
-    """
-    Modifie le statut d'une tâche.
-
-    Retourne True si une tâche existe et est modifiée.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
@@ -136,17 +121,10 @@ def update_task(task_id: int, done: bool) -> bool:
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
-
         return False
 
 
 def delete_task(task_id: int) -> bool:
-    """
-    Supprime une tâche.
-
-    Retourne True si une tâche a été supprimée.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
@@ -170,15 +148,10 @@ def delete_task(task_id: int) -> bool:
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
-
         return False
 
 
 def clear_tasks() -> None:
-    """
-    Supprime toutes les tâches de la base.
-    """
-
     try:
         connection = sqlite3.connect(DATABASE)
 
