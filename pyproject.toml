@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "taskflow"
+name = "taskflow-sadio"
 version = "1.0.0"
 description = "Application de gestion de tâches en Python"
 readme = "README.md"

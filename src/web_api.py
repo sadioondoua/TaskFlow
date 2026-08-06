@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 
 from src.models import Task
-from src.storage import add_task, get_tasks, update_task
+from src.storage import add_task, get_tasks, update_task, delete_task
+
 
 app = FastAPI(
     title="TaskFlow API",
@@ -34,3 +35,14 @@ def done_task(task_id: int):
         return {"message": "Tâche terminée."}
 
     return {"message": "Tâche introuvable."}
+
+
+@app.delete("/tasks/{task_id}")
+def remove_task(task_id: int):
+    success = delete_task(task_id)
+
+    if success:
+        return {"message": "Tâche supprimée avec succès."}
+
+    return {"message": "Tâche introuvable."}
+
