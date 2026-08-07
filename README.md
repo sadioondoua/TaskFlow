@@ -494,6 +494,7 @@ Grâce à ce projet, j'ai appris à :
 - utiliser GitHub Actions ;
 - créer un package Python installable ;
 - documenter un projet logiciel.
+-structure un projet 
 
 ---
 
