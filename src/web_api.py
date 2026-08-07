@@ -45,4 +45,3 @@ def remove_task(task_id: int):
         return {"message": "Tâche supprimée avec succès."}
 
     return {"message": "Tâche introuvable."}
-
