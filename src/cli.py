@@ -9,6 +9,7 @@ from storage import (
     get_tasks,
     update_task,
     delete_task,
+    count_tasks,
 )
 from api import is_holiday
 
@@ -74,8 +75,7 @@ def main() -> None:
     )
 
     subparsers.add_parser("stats")
-
-    # Nouvelle commande export
+    subparsers.add_parser("count")
     subparsers.add_parser("export")
 
     args = parser.parse_args()
@@ -159,6 +159,10 @@ def main() -> None:
         elif args.command == "export":
             export_tasks_csv()
             print("Export CSV terminé : tasks.csv")
+
+        elif args.command == "count":
+            total = count_tasks()
+            print(f"Nombre total de taches : {total}")
 
         else:
             parser.print_help()
