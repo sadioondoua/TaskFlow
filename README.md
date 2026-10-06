@@ -421,10 +421,11 @@ Ajoute une nouvelle tâche.
 
 ### PATCH /tasks/{id}/done
 
-Marque une tâche comme terminée.
+Marque une tâche comme terminée(à tester dans Swagger ou avec curl, pas dans la barre d'adresse du navigateur).
+
 
 ```bash
-curl -X PATCH http://127.0.0.1:8000/tasks/195/done
+curl -X PATCH PATCH http://127.0.0.1:8000/tasks/1/done
 ```
 
 ---
@@ -483,7 +484,7 @@ Ces difficultés m'ont permis de mieux comprendre le développement d'une applic
 ---
 
 ## Compétences acquises
-
+http://127.0.0.1:8000/tasks/195/done
 Grâce à ce projet, j'ai appris à :
 
 - développer une application Python organisée ;
