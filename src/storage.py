@@ -165,3 +165,20 @@ def clear_tasks() -> None:
 
     except sqlite3.Error as error:
         print(f"Erreur SQLite : {error}")
+
+
+def count_tasks() -> int:
+    """Retourne le nombre total de taches."""
+    try:
+        connection = sqlite3.connect(DATABASE)
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT COUNT(*) FROM tasks")
+        total = cursor.fetchone()[0]
+
+        connection.close()
+
+        return total
+
+    except sqlite3.Error as error:
+        print(f"Erreur SQLite : {error}")
